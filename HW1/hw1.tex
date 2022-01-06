@@ -1,0 +1,85 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amsthm,amssymb, graphicx, multicol, array}
+\usepackage{bbm}
+\usepackage{mathtools}
+
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\1}{\mathbbm{1}}
+ 
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+ 
+\title{hw1}
+\author{hussain}
+\date{\today}
+
+\begin{document}
+\maketitle
+\begin{problem}{2}
+    Show that a space $X$ is contractible iff every map $f : X \longrightarrow Y$, for
+    arbitrary $Y$, is nullhomotopic. Similarly, show $X$ is contractible iff
+    every map $f : Y \longrightarrow X$ is nullhomotopic.
+\end{problem}
+
+\begin{proof}[solution]
+    Let $X$ be contractible. Then, $\1 \simeq x_0$ for some $x_0 \in X.$ Now consider any $f:X \longrightarrow Y.$ Then, 
+    \[
+    f \simeq fx_0 = y_0     
+    \]
+    for some $y_0 = f(x_0) \in Y.$ Thus $f$ is nullhomotopic.
+
+    Let let $f : X \longrightarrow Y$ be an arbitrary map between $X$ and some arbitrary space $Y.$ Let $f$ be nullhomotopic. In particular let $Y = X$ with $f = \1.$ Then, $\1$ is nullhomotopic and hence $X$ is contractible.
+
+    Second part can be solved in a similar fashion but with right composotion instead of left. 
+\end{proof}
+\begin{problem}{3}
+    Show that $f : X \longrightarrow Y$ is a homotopy equivalence if there exist maps $g, h : Y \longrightarrow X$ such that $fg \simeq \1$ and $hf \simeq \1$. More generally, show that $f : X \longrightarrow Y$ is a homotopy equivalence if there exist $g, h : Y \longrightarrow X$ such that $fg$ and $hf$ are homotopy equivalences.
+\end{problem}
+\begin{proof}[solution]
+    Observe the following
+    \begin{align*}
+        g 
+        &= \1 g \\
+        &\simeq (hf)g \\
+        &= h(fg) \\
+        &\simeq h.
+    \end{align*}
+    In other words, $g$ and $h$ are homotopic. 
+    
+    Now let $fg$ and $hf$ be homotopy equivalences with $i_g$ and $i_h$ as inverses. Notice That $(fg)i_g = f(gi_g) \simeq \1.$ Also, $gi_gfg \simeq g$ therefore $(gi_g)f.$ Thus $gi_g$ is a homotopy inverse to $f.$
+\end{proof}
+
+\begin{problem}{4}
+    Show that the number of path components is a homotopy invariant. (That is, show that if X and Y are homotopy equivalent spaces then they have the same number of path components.)
+\end{problem}
+\begin{proof}[solution]
+    To show that the number of path components remains the same, it suffices to show that the homotopy equivalence induces a bijection between the sets of path components. Let $X$ and $Y$ be homotopically equivalent with homotopy equivalence $f$ and inverse $g.$ Further, let $\mathord{\sim}_X$ be the equivalence relation between two points in $X$ to be path connected. Similarly, define $\mathord\sim_Y.$ Let 
+    \[
+        P: X / \mathord\sim_X \longrightarrow Y / \mathord\sim_Y 
+    \]
+    such that for any $X / \mathord\sim_X \ni [x_0] \mapsto [f(x_0)].$ This map is well defined since if $\hat{x} \in [x_0]$ and $\gamma : I \longrightarrow X$ is a path between $\hat{x}$ and $x_0,$ then by the continuity of $f$, the map $f \circ \gamma : I \longrightarrow Y$ is path between $f(\hat{x})$ and $f(x_0).$ Therefore, $f(\hat{x}) \in [f(x_0)].$ This shows that $P$ is well defined.
+    
+    Next, we show that $P$ is injective. Let $x_0$ and $x_1$ be such that $[f(x_0)] = [f(x_1)]$ with $x_0 \neq x_1.$  There is a path $\gamma : I \longrightarrow Y$ connecting $f(x_0)$ and $f(x_1).$ By the continuity of $g,$ the map $g \circ \gamma$ is a path that connects $x_0$ and $x_1.$ Hence $[x_0] = [x_1].$ This shows that $P$ is injective.
+
+    Lastly, we prove the surjectivity of $P.$ Let $[y] \in Y / \mathord\sim_Y.$ Since $f$ is a homotopy equivalence with homotopy inverse $g$, we have that $fg \simeq \1.$ Let $H:Y \times I \longrightarrow Y$ denote the homotopy between $fg$ and $\1.$ The map $H(y, \cdot) : I \longrightarrow Y$ is a path between $y$ and $f(g(y)).$ Therefore, $P([g(y)]) = [y].$ This proves that $P$ is surjective.
+    
+    The homotopy equivalence $f$ induces a bijection between the sets of path components and hence the number of path components is homotopy invariant.
+\end{proof}
+
+\begin{problem}{6}
+    Given a space $X$, a path connected subspace $A$, and a point $x_0 \in A$, show that the map $\pi_1(A, x_0) \longrightarrow \pi_1(X, x_0)$ induced by the inclusion $A \xhookrightarrow{} X$ is surjective iff every path in $X$ with endpoints in $A$ is homotopic, relative to its endpoints, to a path in $A.$
+\end{problem}
+\begin{proof}[solution]
+    Let $\iota:A \xhookrightarrow{} X$ be the inclusion map and let $\iota_*:\pi_1(A, x_0) \longrightarrow \pi_1(X, x_0)$ denote the homomorphism induced by said inclusion. Suppose $\iota_*$ is surjective. Then, for any equivalnce class of loops $[f] \in \pi_1(X, x_0)$, one can find one or more equivalence classes of loops $[g] \in \pi_1(A, x_0)$ such that
+    \begin{align*}
+        \iota_*([g]) 
+        &= [\iota g] && \text{(def. of $\iota_*$)} \\
+        &= [g] && \text{(loops $[g]$ are in $A$)} \\
+        &= [f] && \text{(surjectivity assertion)}.
+    \end{align*} 
+    In other words, and loop $f$ around $x_0$ is homotopic to at least one other loop $[g]$ around $x_0$ that lies entirely within $A.$ Let $\phi : I \longrightarrow X$ be a path with endpoints $x_0, x_1\in A.$ Since $A$ is path connected, all of its fundamental groups are isomorphic. Thus, WLOG, let $\Phi$ be a path from $x_0$ to some $x_1 \in A$ that lies in $X.$ The path $\bar{\phi}\Phi$ is a loop with basepoint $x_0.$ By the surjectivity of $\iota_*,$ there exists some $[\gamma] \in \pi_1(A, x_0)$ such that ${\phi}\Phi \simeq \gamma.$ Concatenating with $\bar{\phi}$ on both sides, we see that $\Phi \simeq \bar{\phi} \gamma,$ a path that lies within $A.$  
+\end{proof}
+\end{document}
